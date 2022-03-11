@@ -17,11 +17,8 @@ impl Config {
         let query = args[1].clone();
         let filename = args[2].clone();
 
-        let case_sensitive = if args.len() > 3 && args[3].contains("--sens") {
-            true
-        } else {
-            env::var("CASE_INSENSITIVE").is_err()
-        };
+        let case_sensitive =
+            args.len() > 3 && args[3].contains("--sens") || env::var("CASE_INSENSITIVE").is_err();
 
         Ok(Config {
             query,
