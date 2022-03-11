@@ -7,14 +7,14 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let config = Config::new(&args).unwrap_or_else(|err| {
-        println!("Проблемка: {}", err);
+        eprintln!("Проблемка: {}", err);
         process::exit(1);
     });
 
     println!("Ищем {} в файле {}", config.query, config.filename);
 
     if let Err(e) = dinigrep::run(config) {
-        println!("Шо-то пошло на хуй таким способом: {}", e);
+        eprintln!("Шо-то пошло на хуй таким способом: {}", e);
 
         process::exit(1);
     };
