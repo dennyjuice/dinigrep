@@ -11,7 +11,7 @@ fn main() {
         process::exit(1);
     });
 
-    println!("Ищем {}\nВ файле {}", config.query, config.filename);
+    println!("Ищем {} в файле {}", config.query, config.filename);
 
     if let Err(e) = dinigrep::run(config) {
         println!("Шо-то пошло на хуй таким способом: {}", e);
