@@ -1,15 +1,21 @@
 use std::env;
-use std::fs;
+use std::process;
+
+use dinigrep::Config;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let query = &args[1];
-    let filename = &args[2];
+    let config = Config::new(&args).unwrap_or_else(|err| {
+        println!("Проблемка: {}", err);
+        process::exit(1);
+    });
 
-    println!("Ищем {}\nв файле {}", query, filename);
+    println!("Ищем {}\nВ файле {}", config.query, config.filename);
 
-    let contents = fs::read_to_string(filename).expect("Шо-то пошло на хуй");
+    if let Err(e) = dinigrep::run(config) {
+        println!("Шо-то пошло на хуй таким способом: {}", e);
 
-    println!("с тектом: {}", contents);
+        process::exit(1);
+    };
 }
